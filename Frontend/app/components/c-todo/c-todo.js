@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
-import * as todoActions from '../../actions/todo';
-
-@connect((store) => {
-    return {
-        todos: store.todo.todos,
-    }
-})
-
-class Layout extends Component {
+class ToDo extends Component {
     
     componentWillMount() {
-        this.props.dispatch(todoActions.get());
-        this.props.dispatch(todoActions.add('2', 'Second todo item'));
+        this.props.todos = [
+            {key: 1, text: 'Hello'},
+            {key: 2, text: 'World!'}
+        ];
     }
 
     render() {
@@ -34,4 +27,4 @@ class Layout extends Component {
     }
 }
 
-export default Layout;
+export default ToDo;

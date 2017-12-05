@@ -1,5 +1,9 @@
-app/app.min.js
-node_modules/
 .vscode
-npm-debug.log
 .DS_Store
+
+# Frontend
+*/node_modules/
+*/npm-debug.log
+
+# Web
+Web/Build/

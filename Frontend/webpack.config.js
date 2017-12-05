@@ -1,10 +1,15 @@
-var debug = process.env.NODE_ENV !== "production";
+require('dotenv').config();
+
+var debug = process.env.NODE_ENV !== process.env.BUILD_TYPE_PRODUCTION;
 var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
   context: path.join(__dirname, "app"),
-  devtool: debug ? "inline-sourcemap" : null,
+  devtool: debug ? "inline-sourcemap" : null, //TODO: sourcemap ?
+  devServer: { 
+    inline: true,
+  },
   entry: "./app.js",
   module: {
     loaders: [
@@ -16,16 +21,17 @@ module.exports = {
           presets: ['react', 'es2015', 'stage-0'],
           plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy'],
         }
-      }
+      },
     ]
   },
   output: {
-    path: __dirname + "/app/",
-    filename: "./app.min.js"
+    path: '/' + process.env.BUILD_PATH,
+    filename: "app.js"
   },
   plugins: debug ? [] : [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+    new HtmlWebpackPlugin(),
   ],
 };
